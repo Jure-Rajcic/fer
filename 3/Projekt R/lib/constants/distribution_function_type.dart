@@ -1,0 +1,4 @@
+enum DistributionFunctionType {
+  M,
+  G,
+}

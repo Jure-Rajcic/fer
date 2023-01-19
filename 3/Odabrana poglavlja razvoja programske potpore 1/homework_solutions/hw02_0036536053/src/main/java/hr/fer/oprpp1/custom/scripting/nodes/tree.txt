@@ -1,0 +1,61 @@
+Because im to lazy to write good documentation but i found wizualzation of document structer useful i decided to write methods hear,
+they don't work best when script that we are parsing have Strings in mult line
+
+class node
+    public String makeTree(int depth) {
+		throw new SmartScriptParserException("Method makeTree(int depth) is not implemented in one of Node children");
+	}
+
+class DocumentNode:
+    @Override
+	public String makeTree(int depth) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName() + ":\n");
+		for(int i = 0; i < this.numberOfChildren(); i++) {
+			Node child = this.getChild(i);	
+			String className = child.getClass().getSimpleName();
+			String data = child.makeTree(depth + 1);
+			sb.append("\t".repeat(depth+1)+className + ": " + data + "\n");
+		}
+		return sb.toString();
+	}
+
+class EchoNode:
+    @Override
+	public String makeTree(int depth) {
+		depth++;
+		String s = "";
+		for (Element e : elements) {
+			s += e.asText() + ", ";
+		}
+		return "\n" + "\t".repeat(depth) + s.substring(0, s.length() - 2);
+	}
+
+
+class ForLoopNode:
+    @Override
+    public String makeTree(int depth) {
+        depth++;
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n" + "\t".repeat(depth) + "Variable: " + variable.asText());
+        sb.append("\n" + "\t".repeat(depth) + "StartExpression: " + startExpression.asText());
+        sb.append("\n" + "\t".repeat(depth) + "EndExpression: " + endExpression.asText());
+        if (stepExpression != null)
+            sb.append("\n" + "\t".repeat(depth) + "StepExpression: " + stepExpression.asText());
+        return sb.toString();
+    }
+
+class TreeNode:
+    @Override
+	public String makeTree(int depth) {
+		depth++;
+		StringBuilder sb = new StringBuilder();
+        sb.append("\n" + "\t".repeat(depth) + "Text: " + text);
+        return sb.toString();
+	}
+
+Main:
+    // when SmartScriptParser parser already parsed script ....
+    DocumentNode document = parser.getDocumentNode();
+    String originalDocumentBody = document.makeTree(0); 
+    Syste.out.println(originalDocumentBody);
