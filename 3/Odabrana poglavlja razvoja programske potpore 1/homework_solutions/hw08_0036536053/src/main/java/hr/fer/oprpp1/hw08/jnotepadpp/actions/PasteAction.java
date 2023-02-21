@@ -18,7 +18,7 @@ public class PasteAction extends LocalizableAction {
     private JNotepadPP notepad;
 
     public PasteAction(JNotepadPP notepad) {
-        super(KEYWORD,notepad.getFormLocalizationProvider());
+        super(KEYWORD, notepad.getFormLocalizationProvider());
         this.notepad = notepad;
 
         this.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control V"));

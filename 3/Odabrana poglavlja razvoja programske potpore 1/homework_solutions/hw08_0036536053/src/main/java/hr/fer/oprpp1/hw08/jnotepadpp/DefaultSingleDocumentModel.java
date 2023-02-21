@@ -35,19 +35,19 @@ public class DefaultSingleDocumentModel implements SingleDocumentModel {
 
 					@Override
 					public void insertUpdate(DocumentEvent e) {
-						System.out.println("DocumentListener: insertUpdate!");
+						// System.out.println("DocumentListener: insertUpdate!");
 						DefaultSingleDocumentModel.this.setModified(true);
 					}
 
 					@Override
 					public void removeUpdate(DocumentEvent e) {
-						System.out.println("DocumentListener: removeUpdate!");
+						// System.out.println("DocumentListener: removeUpdate!");
 						DefaultSingleDocumentModel.this.setModified(true);
 					}
 
 					@Override
 					public void changedUpdate(DocumentEvent e) {
-						System.out.println("DocumentListener: changedUpdate!");
+						// System.out.println("DocumentListener: changedUpdate!");
 						DefaultSingleDocumentModel.this.setModified(true);
 					}
 				});
@@ -90,5 +90,8 @@ public class DefaultSingleDocumentModel implements SingleDocumentModel {
 	public void removeSingleDocumentListener(SingleDocumentListener l) {
 		this.listeners.remove(l);
 	}
+
+	@Override
+	public String toString() { return path != null ? path.toString() : "unnamed"; }
 
 }

@@ -28,7 +28,7 @@ public class StatisticsAction extends LocalizableAction {
 	private Element element;
 
 	public StatisticsAction(JNotepadPP notepad) {
-		super(KEYWORD, notepad.getFormLocalizationProvider());
+        super(KEYWORD, notepad.getFormLocalizationProvider());
 		this.notepad = notepad;
 
 		this.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control T"));
@@ -58,7 +58,7 @@ public class StatisticsAction extends LocalizableAction {
 			e1.printStackTrace();
 		}
 		boolean isNull = dmdm.getCurrentDocument().getFilePath() == null;
-		FormLocalizationProvider flp = notepad.getFormLocalizationProvider();
+		FormLocalizationProvider flp = (FormLocalizationProvider) super.getILocalizationProvider();
 
 		JOptionPane.showMessageDialog(notepad, flp.getString("document") + " "
 				+ (isNull ? "(unnamed)" : dmdm.getCurrentDocument().getFilePath().getFileName().toString())

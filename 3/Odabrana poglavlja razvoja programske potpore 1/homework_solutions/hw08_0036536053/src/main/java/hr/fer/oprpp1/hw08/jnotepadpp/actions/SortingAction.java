@@ -20,8 +20,8 @@ public abstract class SortingAction extends LocalizableAction {
     private JNotepadPP notepad;
     private SortingActionType type;
 
-    public SortingAction(JNotepadPP notepad, String keyword, SortingActionType type) {
-        super(keyword, notepad.getFormLocalizationProvider());
+    public SortingAction(JNotepadPP notepad, String KEYWORD, SortingActionType type) {
+        super(KEYWORD, notepad.getFormLocalizationProvider());
         this.notepad = notepad;
         this.type = type;
     }
@@ -31,13 +31,13 @@ public abstract class SortingAction extends LocalizableAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         final DefaultMultipleDocumentModel dmdm = notepad.getDefaultMultipleDocumentModel();
-        final FormLocalizationProvider flp = notepad.getFormLocalizationProvider();
+        final FormLocalizationProvider flp = (FormLocalizationProvider) super.getILocalizationProvider();
         final JTextArea jTextArea = dmdm.getCurrentDocument().getTextComponent();
 
         int len = Math.abs(jTextArea.getCaret().getDot() - jTextArea.getCaret().getMark());
-        System.out.println(len);
+        // System.out.println(len);
         int offset = Math.min(jTextArea.getCaret().getDot(), jTextArea.getCaret().getMark());
-        System.out.println(offset);
+        // System.out.println(offset);
         try {
             String text = jTextArea.getDocument().getText(offset, len);
             List<String> lines = Arrays.asList(text.split("\n"));

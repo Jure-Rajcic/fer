@@ -34,7 +34,7 @@ public class ExitAction extends LocalizableAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         final DefaultMultipleDocumentModel dmdm = notepad.getDefaultMultipleDocumentModel();
-        FormLocalizationProvider flp = notepad.getFormLocalizationProvider();
+        FormLocalizationProvider flp = (FormLocalizationProvider) super.getILocalizationProvider();
         Iterator<SingleDocumentModel> iterator = dmdm.iterator();
         while (iterator.hasNext()) {
             SingleDocumentModel m = iterator.next();

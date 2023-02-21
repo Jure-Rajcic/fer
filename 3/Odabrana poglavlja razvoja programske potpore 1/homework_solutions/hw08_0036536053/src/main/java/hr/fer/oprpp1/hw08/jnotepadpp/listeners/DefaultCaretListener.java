@@ -40,7 +40,5 @@ public class DefaultCaretListener implements CaretListener{
 		
         
     }
-
-
     
 }

@@ -1,6 +1,7 @@
 package hr.fer.oprpp1.hw04.db;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
 public class QueryParser {
 
     private List<ConditionalExpression> list; // list of conditions for filtering student database
-
+    String[] columns;
     /**
      * constructor for [QueryParser]
      * fills list based on @param input
@@ -42,7 +43,7 @@ public class QueryParser {
             while (Character.isWhitespace(characters[start]))
                 start++;
             end = start;
-            while (Character.isLetter(characters[end]))
+            while (Character.isLetter(characters[end]) || characters[end] == '-')
                 end++;
             String atribute = new String(characters, start, end - start);
             IFieldValueGetter ifvg = switch (atribute) {
@@ -93,14 +94,41 @@ public class QueryParser {
             end = start + "and".length();
             if (end < characters.length && (new String(characters, start, end - start)).equals("and")) {
                 start = end;
-            } else
-                throw new IllegalStateException("invalid query linking, use [AND] keyword");
+            } else {
+                // end = start + "with-statistics".length();
+                // // System.out.println(end);
+                // // System.out.println(characters.length);
+                // // System.out.println(new String(characters, start, end - start));
+                // if (end <= characters.length && (new String(characters, start, end - start)).equals("with-statistics")) {
+                //     start = end;
+                //     if (start == characters.length) {
+                //         printStatistics = true;
+                //         break;
+                //     } else {
+                //         throw new IllegalStateException("[with-statistics] needs to be last in query");
+                //     }
+                // } else {
+                //     throw new IllegalStateException("invalid query linking, use [AND] keyword");
+                // }
+                end = start + "showing".length();
+                
+                if (end < characters.length) {
+                    String s = new String(characters, end, characters.length - end);
+                    String[] l = s.replaceAll(" +", "").split(",");
+                    for(String str : l) {
+                        if (! "jmbag lastname firstname".contains(str.toLowerCase()))
+                            throw new IllegalArgumentException("only jmbag, lastName or firstName are allowed after showing keyword");
+                    }
+                    columns = l;
+                }
+                break;
+                // query lastName Like "B*" showing lastName, jmbag, firstName, firstName
+            }
             if (start < characters.length && Character.isWhitespace(characters[start])) {
                 while (start < characters.length && Character.isWhitespace(characters[start]))
                     start++;
             } else
                 throw new IllegalStateException("invalid query after keyword [AND]");
-
             parsingQuery = start < characters.length;
         }
     }

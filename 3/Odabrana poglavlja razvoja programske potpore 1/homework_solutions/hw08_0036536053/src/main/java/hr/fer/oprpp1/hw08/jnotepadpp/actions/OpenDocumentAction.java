@@ -34,7 +34,7 @@ public class OpenDocumentAction extends LocalizableAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fc = new JFileChooser();
-        FormLocalizationProvider flp = notepad.getFormLocalizationProvider();
+        FormLocalizationProvider flp = (FormLocalizationProvider) super.getILocalizationProvider();
         fc.setDialogTitle(flp.getString(KEYWORD));
         if (fc.showOpenDialog(this.notepad) != JFileChooser.APPROVE_OPTION)
             return;

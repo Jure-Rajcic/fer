@@ -43,7 +43,7 @@ public class SaveAsAction extends LocalizableAction {
         if (dmdm.getNumberOfDocuments() == 0)
             return;
         JFileChooser fc = new JFileChooser();
-        FormLocalizationProvider flp = notepad.getFormLocalizationProvider();
+        FormLocalizationProvider flp = (FormLocalizationProvider) super.getILocalizationProvider();
         fc.setDialogTitle(flp.getString(KEYWORD));
         if (fc.showSaveDialog(notepad) != JFileChooser.APPROVE_OPTION) {
             JOptionPane.showMessageDialog(

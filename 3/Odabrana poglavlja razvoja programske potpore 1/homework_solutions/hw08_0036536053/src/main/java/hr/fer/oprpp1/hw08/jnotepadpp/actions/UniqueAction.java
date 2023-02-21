@@ -33,9 +33,9 @@ public class UniqueAction extends LocalizableAction {
         final JTextArea jTextArea = dmdm.getCurrentDocument().getTextComponent();
 
         int len = Math.abs(jTextArea.getCaret().getDot() - jTextArea.getCaret().getMark());
-        System.out.println(len);
+        // System.out.println(len);
         int offset = Math.min(jTextArea.getCaret().getDot(), jTextArea.getCaret().getMark());
-        System.out.println(offset);
+        // System.out.println(offset);
         try {
             String text = jTextArea.getDocument().getText(offset, len);
             List<String> lines = Arrays.asList(text.split("\n"));

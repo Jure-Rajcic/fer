@@ -4,10 +4,7 @@ import java.awt.event.ActionEvent;
 
 import hr.fer.oprpp1.hw08.jnotepadpp.DefaultMultipleDocumentModel;
 import hr.fer.oprpp1.hw08.jnotepadpp.JNotepadPP;
-
-
 import hr.fer.oprpp1.hw08.jnotepadpp.local.LocalizableAction;
-
 
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;

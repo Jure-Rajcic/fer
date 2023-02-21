@@ -11,7 +11,6 @@ import hr.fer.oprpp1.hw08.jnotepadpp.JNotepadPP;
 import hr.fer.oprpp1.hw08.jnotepadpp.local.FormLocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.local.LocalizableAction;
 
-
 import javax.swing.Action;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
@@ -34,7 +33,7 @@ public class CloseDocumentAction extends LocalizableAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         final DefaultMultipleDocumentModel dmdm = notepad.getDefaultMultipleDocumentModel();
-        final FormLocalizationProvider flp = notepad.getFormLocalizationProvider();
+        final FormLocalizationProvider flp = (FormLocalizationProvider) super.getILocalizationProvider();
 
         if (dmdm.getCurrentDocument() == null)
             return;
@@ -70,17 +69,20 @@ public class CloseDocumentAction extends LocalizableAction {
                     }
                     dmdm.saveDocument(dmdm.getCurrentDocument(), filePath);
                     dmdm.closeDocument(dmdm.getCurrentDocument());
+                    return;
                 }
                 case JOptionPane.NO_OPTION -> {
                     dmdm.closeDocument(dmdm.getCurrentDocument());
-                    System.out.println("no optioned");
+                    return;
+                    // System.out.println("no optioned");
                 }
                 case JOptionPane.CANCEL_OPTION -> {
-                    System.out.println("cancle optioned");
-
+                    return;
+                    // System.out.println("cancle optioned");
                 }
             }
+        } else {
+            dmdm.closeDocument(dmdm.getCurrentDocument());
         }
-        dmdm.closeDocument(dmdm.getCurrentDocument());
     }
 }

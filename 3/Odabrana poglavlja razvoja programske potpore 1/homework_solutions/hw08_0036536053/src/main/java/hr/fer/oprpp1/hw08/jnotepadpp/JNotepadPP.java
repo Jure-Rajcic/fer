@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -43,7 +44,7 @@ import hr.fer.oprpp1.hw08.jnotepadpp.local.LocalizableAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.local.LocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.models.Clock;
 import hr.fer.oprpp1.hw08.jnotepadpp.models.SingleDocumentListener;
-import java.awt.event.ActionEvent;
+
 /**
  * class JNotepadPP represents GUI that user uses
  * 
@@ -54,6 +55,20 @@ public class JNotepadPP extends JFrame {
 
 	
 	private static final long serialVersionUID = 1L;
+	private FormLocalizationProvider flp = new FormLocalizationProvider(LocalizationProvider.getInstance(), this);
+	public FormLocalizationProvider getFormLocalizationProvider() { return this.flp; }
+	private DefaultMultipleDocumentModel model = new DefaultMultipleDocumentModel();
+	private String copyPaste;
+	private JPanel statusBar;
+	private Clock clock;
+
+	public Clock getClock() {
+		return this.clock;
+	}
+
+	public JPanel getStatusBar() {
+		return this.statusBar;
+	}
 	
 	public JNotepadPP() {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -61,28 +76,53 @@ public class JNotepadPP extends JFrame {
 		setSize(600,600);
 		initGUI();
 		
-		this.addWindowListener(new WindowAdapter() {
+		WindowListener wl = new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				JNotepadPP.this.exitAction.actionPerformed(new ActionEvent(e, ActionEvent.ACTION_PERFORMED, null));
+				// passing null because this simulates default call
+				JNotepadPP.this.exitAction.actionPerformed(null);
 			}
-		});
+		};
+		this.addWindowListener(wl);
+	}
+
+	public DefaultMultipleDocumentModel getDefaultMultipleDocumentModel() {
+		return this.model;
+	}
+
+
+	
+	private void initGUI() {
+		
+		model.addMultipleDocumentListener(new DefaultMultipleDocumentListener(this));
+		// GUI for status bar
+		{
+			this.statusBar = new JPanel();
+			this.statusBar.setLayout(new GridLayout(0,3));
+			this.statusBar.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+			
+			JLabel length = new JLabel("Length:0");
+			length.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			this.statusBar.add(length);
+			
+			JLabel lnColSel = new JLabel("Ln:0 Col:0 Sel:0");
+			lnColSel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			this.statusBar.add(lnColSel);
+			
+			this.clock = new Clock();
+			this.statusBar.add(clock);
+		}
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add(new JScrollPane(model), BorderLayout.CENTER);
+		panel.add(statusBar, BorderLayout.SOUTH);
+		
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(panel, BorderLayout.CENTER);
+		GUIMenu();
+		GUIToolbars();
 	}
 	
-	private FormLocalizationProvider flp = new FormLocalizationProvider(LocalizationProvider.getInstance(), this);
-	public FormLocalizationProvider getFormLocalizationProvider() { return this.flp; }
-
-	private DefaultMultipleDocumentModel model = new DefaultMultipleDocumentModel();
-	public DefaultMultipleDocumentModel getDefaultMultipleDocumentModel() { return this.model; }
-
-	private String copyPaste;
-	public String getCopyPaste() { return this.copyPaste; }
-
-	private JPanel statusBar;
-	public JPanel getStatusBar() { return this.statusBar; }
-
-	private Clock clock;
-	public Clock getClock() { return this.clock; }
 	
 	private CaretListener cl = new DefaultCaretListener(this);
 	public CaretListener getCaretListener() { return this.cl; }
@@ -116,7 +156,7 @@ public class JNotepadPP extends JFrame {
 	public void setCopyPaste(String copyPaste) { this.copyPaste = copyPaste; }
 
 	private LocalizableAction cutAction = new CutAction(this);
-	public LocalizableAction getCutAction() { return this.cutAction; }
+	public String getCopyPaste() { return this.copyPaste; }
 	
 	
 	private LocalizableAction pasteAction = new PasteAction(this);
@@ -141,36 +181,6 @@ public class JNotepadPP extends JFrame {
 	public LocalizableAction getUniqueAction() { return this.unique; }
 
 
-	private void initGUI() {
-		
-		model.addMultipleDocumentListener(new DefaultMultipleDocumentListener(this));
-		// GUI for status bar
-		{
-			this.statusBar = new JPanel();
-			this.statusBar.setLayout(new GridLayout(0,3));
-			this.statusBar.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-			
-			JLabel length = new JLabel("Length:0");
-			length.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			this.statusBar.add(length);
-			
-			JLabel lnColSel = new JLabel("Ln:0 Col:0 Sel:0");
-			lnColSel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			this.statusBar.add(lnColSel);
-			
-			this.clock = new Clock();
-			this.statusBar.add(clock);
-		}
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(new JScrollPane(model), BorderLayout.CENTER);
-		panel.add(statusBar, BorderLayout.SOUTH);
-		
-		this.getContentPane().setLayout(new BorderLayout());
-		this.getContentPane().add(panel, BorderLayout.CENTER);
-		GUIMenu();
-		GUIToolbars();
-	}
 
 	private void GUIMenu() {
 		JMenuBar menuBar = new JMenuBar();
@@ -186,8 +196,6 @@ public class JNotepadPP extends JFrame {
 			fileMenu.add(new JMenuItem(exitAction));
 		}
 		menuBar.add(fileMenu);
-
-		
 		JMenu editMenu = new JMenu("Edit");
 		{
 			editMenu.add(new JMenuItem(statisticsAction));
@@ -196,8 +204,6 @@ public class JNotepadPP extends JFrame {
 			editMenu.add(new JMenuItem(pasteAction));
 		}
 		menuBar.add(editMenu);
-
-		
 		JMenu toolsMenu = new JMenu("Tools");
 		menuBar.add(toolsMenu);
 		
@@ -241,7 +247,9 @@ public class JNotepadPP extends JFrame {
 		
 		menuBar.add(languageMenu);
 		this.setJMenuBar(menuBar);
-		
+
+
+
 		flp.addLocalizationListener(() -> {
 			languageMenu.setText(flp.getString("languages"));
 			toolsMenu.setText(flp.getString("tools"));
@@ -279,7 +287,6 @@ public class JNotepadPP extends JFrame {
 	
 	
 	public static void main(String[] args) {
-		// TODO pogledati shorcute ponovo, mislim da imam bug
 		SwingUtilities.invokeLater(() -> {
 			LocalizationProvider.getInstance().setLanguage("en");
 			new JNotepadPP().setVisible(true);

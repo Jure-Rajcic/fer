@@ -8,6 +8,7 @@ public class Main {
 
     /**
      * Main program to start simpulation
+     * eg. query lastName LIKE "B*" showing jmbag, jmbag, firstname, lastname, jmbag
      */
     public static void main(String[] args) {
         StudentDatabase db = null;
@@ -36,9 +37,12 @@ public class Main {
                     records.add(r);
                 }
             }
-            List<String> output = RecordFormatter.format(records);
-            if(output.size() > 2)
-                output.forEach(System.out::println);
+
+            String[] columns = parser.columns;
+            if (columns == null) {
+                columns = new String[] {"jmbag", "firstname", "lastname", "grade"};
+            } 
+            RecordFormatter.showing(records, columns);
             System.out.println("Records selected: " + records.size());
             System.out.print("> ");
 
@@ -51,40 +55,50 @@ public class Main {
      * class that creates 
      */
     public static class RecordFormatter {
-        public static List<String> format(List<StudentRecord> records) {
-            int jmbag = 0, lastName = 0, firstName = 0, grade = 0;
-            for (StudentRecord r : records) {
-                if (r.getJmbag().length() > jmbag)
-                    jmbag = r.getJmbag().length();
-                if (r.getFirstName().length() > firstName)
-                    firstName = r.getFirstName().length();
-                if (r.getLastName().length() > lastName)
-                    lastName = r.getLastName().length();
-                if (r.getFinalGrade().length() > grade)
-                    grade = r.getFinalGrade().length();
-            }
-            jmbag += 2;
-            firstName += 2;
-            lastName += 2;
-            grade += 2;
 
+        public static void showing(List<StudentRecord> records, String[] columns) {
+            if(records.size() == 0) return;
             List<String> list = new ArrayList<String>();
-            String border = String.format("+%s+%s+%s+%s+", "=".repeat(jmbag), "=".repeat(firstName),
-                    "=".repeat(lastName), "=".repeat(grade));
+            String border = "";
+            for (String atr : columns) {
+                int repetition = 0;
+                if (atr.equals("jmbag")) 
+                    repetition = records.stream().mapToInt(r -> r.getJmbag().length()).max().getAsInt();
+                else if (atr.equals("firstname"))
+                    repetition = records.stream().mapToInt(r -> r.getFirstName().length()).max().getAsInt();
+                else if (atr.equals("lastname"))
+                    repetition = records.stream().mapToInt(r -> r.getLastName().length()).max().getAsInt();
+                else if (atr.equals("grade"))
+                    repetition = records.stream().mapToInt(r -> r.getFinalGrade().length()).max().getAsInt();
+                border += String.format("+%s", "=".repeat(repetition + 2));
+            }
+            border += "+";
             list.add(border);
             for (StudentRecord r : records) {
-                String stringJmbag = String.format("%1$" + (jmbag - 2) + "s", r.getJmbag());
-                String stringLastNaem = String.format("%1$" + (lastName - 2) + "s", r.getLastName());
-                String StringFirstName = String.format("%1$" + (firstName - 2) + "s", r.getFirstName());
-                String stringGrade = String.format("%1$" + (grade - 2) + "s", r.getFinalGrade());
-                String row = String.format("| %s | %s | %s | %s |", stringJmbag, stringLastNaem, StringFirstName,
-                        stringGrade);
-                list.add(row);
+                String output = "";
+                for (String s : columns) {
+                    if (s.equals("jmbag")) {
+                        int repetition = records.stream().mapToInt(rec -> rec.getJmbag().length()).max().getAsInt();
+                        output += String.format("| %s ", r.getJmbag() + " ".repeat(repetition - r.getJmbag().length()));
+                    }
+                    else if (s.equals("firstname")) {
+                        int repetition = records.stream().mapToInt(rec -> rec.getFirstName().length()).max().getAsInt();
+                        output += String.format("| %s ", r.getFirstName() + " ".repeat(repetition - r.getFirstName().length()));
+                    }
+                    else if (s.equals("lastname")) {
+                        int repetition = records.stream().mapToInt(rec -> rec.getLastName().length()).max().getAsInt();
+                        output += String.format("| %s ", r.getLastName() + " ".repeat(repetition - r.getLastName().length()));
+                    }
+                    else if (s.equals("grade")) {
+                        int repetition = records.stream().mapToInt(rec -> rec.getFinalGrade().length()).max().getAsInt();
+                        output += String.format("| %s ", r.getFinalGrade() + " ".repeat(repetition - r.getFinalGrade().length()));
+                    }
+                }
+                output += "|";
+                list.add(output);
             }
             list.add(border);
-            if(records.size() == 2) // 2 borders
-                list.clear();
-            return list;
+            list.forEach(System.out::println);
         }
     }
 

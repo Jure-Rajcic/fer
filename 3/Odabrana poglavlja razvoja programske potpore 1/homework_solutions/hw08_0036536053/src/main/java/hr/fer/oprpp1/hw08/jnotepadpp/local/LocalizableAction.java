@@ -10,18 +10,21 @@ public abstract class LocalizableAction extends AbstractAction {
 	
 	private String key;
 	private ILocalizationProvider prov;
-	private ILocalizationListener listener;
 	
 	public LocalizableAction(String key, ILocalizationProvider lp) {
 		this.key = key;
 		this.prov = lp;
-		this.listener = () -> {
+		ILocalizationListener listener = () -> {
 			String text = LocalizableAction.this.prov.getString(LocalizableAction.this.key);
 			LocalizableAction.this.putValue(Action.NAME, text);
 		};
 		this.prov.addLocalizationListener(listener);
 		String text = prov.getString(this.key);
 		this.putValue(Action.NAME, text);
+	}
+
+	public ILocalizationProvider getILocalizationProvider() {
+		return this.prov;
 	}
 
 }

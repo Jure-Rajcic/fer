@@ -11,6 +11,8 @@ public class DefaultMultipleDocumentListener implements MultipleDocumentListener
 
     private JNotepadPP notepad;
 
+    public DefaultMultipleDocumentListener(){}
+
     public DefaultMultipleDocumentListener(JNotepadPP notepad) {
         this.notepad = notepad;
     }

@@ -9,6 +9,13 @@
             "name": "Launch MyShell",
             "request": "launch",
             "mainClass": "hr.fer.zemris.java.hw05.shell.MyShell",
+            "projectName": "hw05-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch MyShell",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.hw05.shell.MyShell",
             "projectName": "hw04-0036536053"
         },
         {

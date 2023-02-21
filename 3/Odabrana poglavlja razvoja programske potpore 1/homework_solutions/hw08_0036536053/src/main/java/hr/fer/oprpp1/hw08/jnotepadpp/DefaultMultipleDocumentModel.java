@@ -180,7 +180,6 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
 
 	@Override
 	public JComponent getVisualComponent() {
-		// TODO inicjalizirat gui
 		return this;
 	}
 

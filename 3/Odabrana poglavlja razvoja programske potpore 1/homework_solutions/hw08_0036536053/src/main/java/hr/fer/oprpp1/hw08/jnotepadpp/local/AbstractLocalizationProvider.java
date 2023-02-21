@@ -14,14 +14,20 @@ public abstract class AbstractLocalizationProvider implements ILocalizationProvi
 	@Override
 	public void addLocalizationListener(ILocalizationListener l) {
 		this.listeners.add(l);
+		// System.out.println("dodao : " + listeners.size());
+
 	}
 
 	@Override
 	public void removeLocalizationListener(ILocalizationListener l) {
 		this.listeners.remove(l);
+		// System.out.println("maknuo : " + listeners.size());
+
 	}
+
 	
 	public void fire() {
+		// System.out.println(listeners.size());
 		for(ILocalizationListener l : listeners)
 			l.localizationChanged();
 	}
