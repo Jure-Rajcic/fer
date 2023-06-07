@@ -1,0 +1,125 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch SmartHttpServer",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.webserver.SmartHttpServer",
+            "projectName": "hw01-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch SmartHttpServer",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.webserver.SmartHttpServer",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch SmartScriptEngineDemo4",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.SmartScriptEngineDemo4",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch SmartScriptEngineDemo3",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.SmartScriptEngineDemo3",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch SmartScriptEngineDemo2",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.SmartScriptEngineDemo2",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch DemoRequestContext",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.DemoRequestContext",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch SmartScriptEngineDemo",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.SmartScriptEngineDemo",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch TreeWriter",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.TreeWriter",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch TreeWriter",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.TreeWriter",
+            "projectName": "hw01-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch DemoRequestContext",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.DemoRequestContext",
+            "projectName": "hw01-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch ValueWrapper",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.exec.ValueWrapper",
+            "projectName": "hw01-0036536053"
+        },
+        {
+            "name": "Java",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ]
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ],
+            "externalConsole": true
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch ObjectMultistackDemo",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.custom.scripting.demo.ObjectMultistackDemo",
+            "projectName": "hw01-0036536053"
+        }
+    ]
+}

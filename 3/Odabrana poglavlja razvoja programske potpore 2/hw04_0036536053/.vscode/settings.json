@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.jsp": "java"
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
+    
+}

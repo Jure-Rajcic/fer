@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <style>
+ body {
+   background-color: {$= "background" 0 @tparamGet $};
+   margin: 20vh;
+ }
+ .square {
+   width: 50px;
+   height: 50px;
+   background-color: #00FF00;
+ }
+ ul li p h1 {
+   display: block;
+ }
+ </style>
+ </head>
+ <body>
+   <h1>svi primjeri kroz dz</h1>
+   <p> Problem 4 </p>
+    <ul>
+      <li><a href="http://127.0.0.1:5721/sample.txt">sample.txt</a></li>
+      <li><a href="http://127.0.0.1:5721/index.html">index.html</a></li>
+      <li><a href="http://127.0.0.1:5721/fruits.png">fruits.png</a></li>
+      <li><a href="http://www.localhost.com:5721/sample.txt">sample.txt localhost</a></li>
+      <li><a href="http://www.localhost.com:5721/index.html">index.html localhost</a></li>
+      <li><a href="http://www.localhost.com:5721/fruits.png">fruits.png localhost </a></li>
+    </ul>
+   <p> Problem 5 </p>
+    <ul>
+      <li><a href="http://www.localhost.com:5721/scripts/osnovni.smscr">osnovni.smscr</a></li>
+      <li><a href="http://www.localhost.com:5721/scripts/zbrajanje.smscr?a=3&b=7">zbrajanje.smscr</a></li>
+      <li><a href="http://www.localhost.com:5721/scripts/brojPoziva.smscr">brojPoziva.smscr</a></li>
+      <li><a href="http://www.localhost.com:5721/scripts/fibonacci.smscr">fibonacci.smscr</a></li>
+      <li><a href="http://www.localhost.com:5721/scripts/fibonaccih.smscr">fibonaccih.smscr</a></li>
+    </ul>
+    <p> Problem 6 </p>
+    <ul>
+      <li><a href="http://www.localhost.com:5721/hello">hello</a></li>
+      <li><a href="http://www.localhost.com:5721/hello?name=john">hello john.smscr</a></li>
+      <li><a href="http://www.localhost.com:5721/cw">cw.smscr</a></li>
+      <li><a href="http://www.localhost.com:5721/ext/EchoParams?ime=jure&prezime=rajcic">echo params: jure rajcic</a></li>
+      <li><a href="http://www.localhost.com:5721/ext/HelloWorker">HelloWorker</a></li>
+      <li><a href="http://www.localhost.com:5721/ext/CircleWorker">CircleWorker</a></li>
+      <li><a href="http://www.localhost.com:5721/EchoParams">EchoParams Not Found jer nije mapiran</a></li>
+      <li><a href="http://127.0.0.1:5721/calc?a=11&b=22">Zbrajanje a =11 + b=22</a></li>
+      <li><a href="http://127.0.0.1:5721/calc?b=23">Zbrajanje b = 23, a nije zadan</a></li>
+    </ul>
+
+    <p> Problem 7, (safari session != chrom session) </p>
+    <ul>
+      <li><a href="http://www.localhost.com:5721/scripts/brojPoziva.smscr">localhost session </a></li>
+      <li><a href="http://127.0.0.1:5721/scripts/brojPoziva.smscr">127.0.0.1 session</a></li>
+    </ul>
+
+
+    <h2>SumWorker</h2>
+   <form action="http://127.0.0.1:5721/calc" method="GET">
+     <label for="a">a:</label>
+     <input type="number" id="a" name="a">
+     <br>
+     <label for="b">b:</label>
+     <input type="number" id="b" name="b">
+     <br>
+     <input type="submit" value="Submit">
+   </form>
+
+   <h2>Set Background Color</h2>
+   <p> NISAM RIJESIO </p>
+
+    <form action="http://127.0.0.1:5721/setbgcolor" method="GET">
+    <label for="bgcolor">Select a color:</label>
+    <select name="bgcolor" id="bgcolor">
+        <option value="FFFFFF">White</option>
+        <option value="FFA500">Orange</option>
+        <option value="FF0000">Red</option>
+        <option value="008000">Green</option>
+    </select>
+    <br>
+    <input type="submit" value="Set Background Color">
+    </form>
+
+ </body>
+</html>

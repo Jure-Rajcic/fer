@@ -1,0 +1,153 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.client.Client",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.server.Server",
+            "projectName": "hw02-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.client.Client",
+            "projectName": "hw01-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.server.Server",
+            "projectName": "hw01-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.client_server.Client",
+            "projectName": "hw06-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.client_server.Server",
+            "projectName": "hw06-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch NewtonP1",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.fractals.Executor.NewtonP1",
+            "projectName": "hw06-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch NewtonP2",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.fractals.NewtonP2",
+            "projectName": "hw06-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch NewtonP1",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.fractals.NewtonP1",
+            "projectName": "hw06-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.Main",
+            "projectName": "hw05-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch NewtonParallel",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.fractals.NewtonParallel",
+            "projectName": "hw05-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Newton",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.fractals.Newton",
+            "projectName": "hw05-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.math.Main",
+            "projectName": "hw05-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch MyShell",
+            "request": "launch",
+            "mainClass": "hr.fer.zemris.java.hw05.shell.MyShell",
+            "projectName": "hw04-0036536053"
+        },
+        {
+            "type": "java",
+            "name": "Launch UtilTest",
+            "request": "launch",
+            "mainClass": "hr.fer.oprpp1.hw05.crypto.UtilTest",
+            "projectName": "hw04-0036536053"
+        },
+        {
+            "name": "Java",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ]
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ],
+            "externalConsole": true
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Crypto",
+            "request": "launch",
+            "mainClass": "hr.fer.oprpp1.hw05.crypto.Crypto",
+            "projectName": "hw04-0036536053"
+        }
+    ]
+}

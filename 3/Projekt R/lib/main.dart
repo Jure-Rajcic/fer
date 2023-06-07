@@ -15,7 +15,7 @@ void main() async {
   final router = AppRouter();
   runApp(
     MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       navigatorObservers: [routeObserver],
       home: false
           ? SimulationView(

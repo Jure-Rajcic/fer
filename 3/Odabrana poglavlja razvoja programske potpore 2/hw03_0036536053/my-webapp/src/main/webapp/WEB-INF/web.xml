@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>SetColorServlet</servlet-name>
+        <servlet-class>com.example.SetColorServlet</servlet-class>
+        <servlet-name>TrigonometricServlet</servlet-name>
+        <servlet-class>com.example.TrigonometricServlet</servlet-class>
+        <servlet-name>PieChartServlet</servlet-name>
+        <servlet-class>com.example.PieChartServlet</servlet-class>
+        <servlet-name>PowersServlet</servlet-name>
+        <servlet-class>com.example.PowersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GlasanjeServlet</servlet-name>
+        <servlet-class>com.example.GlasanjeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GlasanjeGlasajServlet</servlet-name>
+        <servlet-class>com.example.GlasanjeGlasajServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GlasanjeRezultatiServlet</servlet-name>
+        <servlet-class>com.example.GlasanjeRezultatiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GlasanjeXLS</servlet-name>
+        <servlet-class>com.example.GlasanjeXLS</servlet-class>
+    </servlet>
+    
+</web-app>
