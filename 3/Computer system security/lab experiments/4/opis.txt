@@ -1,0 +1,113 @@
+========== Rješavanje laboratorijske vježbe ==========
+
+1. Postavljanje osnovnih pravila za firewall
+    Počeo sam s postavljanjem osnovnih pravila za firewall (iptables) da bih osigurao da je sav promet po defaultu blokiran, osim prometa koji je eksplicitno dozvoljen.
+    
+    $IPT -P INPUT DROP
+    $IPT -P OUTPUT DROP
+    $IPT -P FORWARD DROP
+
+2. Dozvola ICMP prometa
+    Omogućio sam ICMP promet za potrebe testiranja. To uključuje ping i druge ICMP poruke.
+
+    $IPT -A INPUT   -p icmp -j ACCEPT
+    $IPT -A FORWARD -p icmp -j ACCEPT
+    $IPT -A OUTPUT  -p icmp -j ACCEPT
+
+3. Postavljanje pravila za web i DNS poslužitelje
+    Postavio sam pravila koja omogućuju pristup web poslužitelju (TCP port 80) i DNS poslužitelju (UDP i TCP port 53) na www s bilo koje adrese.
+
+    $IPT -A FORWARD -p udp --dport 53 -d 198.51.100.10 -j ACCEPT
+    $IPT -A FORWARD -p tcp --dport 53 -d 198.51.100.10 -j ACCEPT
+    $IPT -A FORWARD -p tcp --dport 80 -d 198.51.100.10 -j ACCEPT
+
+4. Postavljanje pravila za SSH poslužitelj
+    Postavio sam pravilo koje omogućuje pristup SSH poslužitelju na www samo s računala PC iz lokalne mreže (LAN).
+
+    $IPT -A FORWARD -p tcp --dport 22 -s 10.0.0.0/24 -d 198.51.100.10 -j ACCEPT
+
+5. Postavljanje pravila za pristup poslužitelju database
+    Postavio sam pravila koja omogućuju pristup poslužitelju database na TCP portu 10000 s www, kao i pristup DNS poslužiteljima u Internetu.
+
+    $IPT -A FORWARD -p tcp --dport 10000 -s 198.51.100.10 -d 10.0.0.100 -j ACCEPT
+    $IPT -A FORWARD -p tcp --dport 53 -s 198.51.100.10 -d 203.0.113.0/24 -j ACCEPT
+    $IPT -A FORWARD -p udp --dport 53 -s 198.51.100.10 -d 203.0.113.0/24 -j ACCEPT
+
+6. Blokiranje pristupa ostalim adresama i poslužiteljima
+    Postavio sam pravila koja blokiraju pristup svim ostalim adresama i poslužiteljima s www, kao i pristup svim ostalim adresama i poslužiteljima u DMZ.
+
+    $IPT -AFORWARD -s 198.51.100.10 -j DROP 
+    $IPT -A FORWARD -d 198.51.100.0/24 -j DROP
+
+7. Postavljanje pravila za pristup SSH poslužitelju na cvoru database
+    Postavio sam pravilo koje omogućuje pristup SSH poslužitelju na cvoru database samo računalima iz mreže LAN.
+
+    $IPT -A FORWARD -p tcp --dport 22 -s 10.0.0.0/24 -d 10.0.0.100 -j ACCEPT 
+
+8. Blokiranje pristupa svim uslugama s računala database
+    Postavio sam pravilo koje blokira pristup svim uslugama u Internetu i u DMZ s računala database.
+
+    $IPT -A FORWARD -s 10.0.0.100 -j DROP 
+
+9. Blokiranje pristupa svim ostalim uslugama na poslužitelju database
+    Postavio sam pravilo koje blokira pristup svim ostalim uslugama na poslužitelju database.
+
+    $IPT -A FORWARD -d 10.0.0.100 -j DROP 
+
+10. Postavljanje pravila za pristup Internetu s računala iz lokalne mreže
+    Postavio sam pravila koja omogućuju pristup svim računalima u Internetu s računala iz lokalne mreže, ali samo korištenjem protokola HTTP (TCP port 80) i DNS (UDP i TCP port 53).
+
+    $IPT -A FORWARD -s 10.0.0.0/24 -p tcp --dport 80 -j ACCEPT
+    $IPT -A FORWARD -s 10.0.0.0/24 -p tcp --dport 53 -j ACCEPT
+    $IPT -A FORWARD -s 10.0.0.0/24 -p udp --dport 53 -j ACCEPT
+
+11. Blokiranje pristupa iz vanjske mreže u lokalnu LAN mrežu
+    Postavio sam pravilo koje blokira pristup iz vanjske mreže u lokalnu LAN mrežu.
+
+    $IPT -A FORWARD -d 10.0.0.0/24 -j DROP 
+
+12. Postavljanje pravila za pristup SSH poslužitelju na cvoru FW
+    Postavio sam pravilo koje omogućuje pristup SSH poslužitelju na cvoru FW samo iz lokalne mreže i to samo sa cvora PC.
+
+    $IPT -A INPUT -p tcp --dport 22 -s 10.0.0.20 -j ACCEPT
+
+
+========== Testiranje konfiguracije ==========
+
+Nakon što sam postavio sva pravila, koristio sam alat nmap za skeniranje portova i provjeru ispravnosti konfiguracije. 
+Izvršio sam niz nmap naredbi s različitih računala kako bih provjerio da su pravila ispravno postavljena i da promet teče kako je očekivano.
+Na primjer, neke od naredbe koje sam izvršio su:
+    
+    sudo himage PC nmap -n -Pn "-p20-25,53,80,443, 10000" 10.0.0.100
+    sudo himage PC nmap -n -Pn "-p20-25,53,80,443" 10.0.0.1
+    sudo himage PC nmap -n -Pn "-p20-25,53,80,443" 198.51.100.10
+    sudo himage PC nmap -n -Pn "-p20-25,53,80,443" 203.0.113.10
+    sudo himage PC nmap -n -Pn -sU -p 53 198.51.100.10
+    sudo himage PC nmap -n -Pn -sU -p 53 203.0.113.10
+
+Ove naredbe su mi omogućile da provjerim da su pravila ispravno postavljena i da promet teče kako je očekivano,
+Naredbe sam ponovio i za ostala računala u mreži: database, www i client i provjerio da su pravila ispravno postavljena i da promet teče kako je očekivano.
+
+
+
+========== Dodatne opcije s alatom nmap ==========
+
+Osim osnovnih nmap naredbi, isprobao sam i neke dodatne opcije koje nmap nudi:
+
+TCP Syn scan: 
+    Ova naredba skenira otvorene TCP portove na određenom računalu. Na primjer, izvršio sam naredbu sudo himage PC nmap -n -Pn -sS 198.51.100.10 i otkrio da su portovi 22, 53 i 80 otvoreni na računalu www, što je bilo očekivano.
+
+Detekcija operacijskog sustava: 
+    Nmap može pokušati odrediti koji operacijski sustav pokreće određeno računalo. Izvršio sam naredbu sudo himage PC nmap -n -Pn -O -p 80 198.51.100.10 i nmap je pretpostavio da računalo www pokreće neku verziju Linuxa između 2.6.32 i 4.2.
+
+Detekcija verzija servisa: 
+    Nmap može pokušati odrediti koje verzije servisa pokreće određeno računalo. Izvršio samnaredbu sudo himage PC nmap -n -Pn -sV -p 80 198.51.100.10 i nmap je detektirao da računalo www pokreće verziju "lighttpd 1.4.45" web servera.
+
+Općeniti skeniranje: 
+    Nmap može izvršiti općenito skeniranje koje vraća sve informacije koje može pronaći o otvorenim portovima na određenom računalu. Izvršio sam naredbu sudo himage PC nmap -A 198.51.100.10 i nmap je vratio informacije o svim otvorenim portovima na računalu www.
+
+
+
+
+
+

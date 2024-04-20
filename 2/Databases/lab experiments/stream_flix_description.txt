@@ -1,0 +1,23 @@
+U bazi podataka stream_flix se evidentiraju podatci o medijskim sadržajima (track) dostupnim preko internetskog servisa za gledanje medijskih sadržaja, vlasnicima korisničkih računa (owner) na tom servisu i gledanju nekog medijskog sadržaja od strane korisnika (trackView).
+
+Medijski sadržaj je ili film (track.tracktype='M'), ili epizoda serije (track.tracktype='E'). Za filmove (movie) se bilježi prethodnik ako postoji (prevMovieId) i ukupna zarada od prodaje kino ulaznica (boxIncome) ako se film prikazivao u kinima, te nominacije za Oscara (oscarNominee) u različitim kategorijama (oscarCategory) uz informaciju je li osvojio Oscara u kategoriji za koju je nominiran (oscarNominee.isWinner) i za koju godinu dodjele Oscara (oscarNominee.oscarYear).
+
+Za epizodu serije (showEp) se bilježi kojoj seriji (show) pripada te sezona i redni broj epizode.
+
+Za medijski sadržaj se bilježi kojim žanrovima pripada (npr. 'action', 'comedy'), glumci (actor, actorTrack) s nazivima glumačkih uloga (actorTrack.characterName), dostupni prijevodi (subtitle) i dostupni zvučni zapisi (audioLang). Prijevodi i zvučni zapisi mogu biti dostupni na različitim svjetskim jezicima (language), a za zvučni zapis se bilježi je li izvorni ili ne (audioLang.isNative). Ocjena medijskog sadržaja (track.trackRating) računa se kao omjer broja korisnika kojima se on svidio u odnosu na sve koji su ga ocijenili (računa se posebnim mehanizmima), odnosno NULL, ako ga niti jedan korisnik još nije ocijenio. Dodatno, za medijske sadržaje postoji ograničenje ovisno o starosnoj dobi (track.tAgeRestriction). Ako je ograničenje nepoznato, smatra se da medijski sadržaj nema ograničenje ovisno o starosnoj dobi. Za seriju se ocjena (show.showRating) računa slično kao za filmove i epizode, samo kumulativno preko svih njezinih epizoda. Ocjena može biti NULL, ako niti jedna epizoda još nije ocijenjena.
+
+Vlasnik korisničkog računa (owner) se registrira/prijavljuje u sustav svojim e-mailom (owner.oEmail). Na svom računu može imati izrađen jedan ili više profila (profile) i svaki ima svoj naziv (profile.profileName) koji je jedinstven u opsegu jednog korisničkog računa. Dodatno, za svaki profil se može dodati e-mail (profile.pEmail) i ograničenje na sadržaje ovisno o starosnoj dobi (profile.pAgeRestriction). Ako je ograničenje nepoznato, smatra se da profil nema ograničenje ovisno o starosnoj dobi. Za prijavu u sustav koristi se e-mail vlasnika računa (owner.oEmail).
+
+(Napomena: e-mail profila služi za dobivanje obavijesti o novom sadržaju, a ne za prijavu u sustav.)
+
+Vlasnik računa internetskog servisa uslugu servisa plaća na mjesečnoj osnovi za njegov aktivan paket (pack). Vlasnik može mijenjati vrstu paketa, ali u jednom trenutku može imati samo jedan aktivan paket. Za svaku kupnju paketa (ownerPack) bilježe se datum i vrijeme njegove aktivacije (packStartDateTime) i deaktivacije (packEndDateTime IS NULL ako je paket još aktivan).
+
+Gledatelj/gledatelji iza pojedinog korisničkog profila mogu ocijeniti sviđa li im se sadržaj ili ne (profileTrack.liked, poprima vrijednost 1 ili -1), no sadržaj može ostati i neocijenjen (ima vrijednost NULL).
+
+Relacija trackView sadrži podatke o gledanju medijskog sadržaja preko korisničkog profila, na jednom uređaju (trackView.deviceId). Za svako neprekinuto gledanje sadržaja (cijelog ili njegovog dijela) bilježi se datum i vrijeme početka i kraja gledanja (viewStartDateTime, odnosno viewEndDateTime), te se u atributu savedProgress pohranjuje do kuda se došlo s gledanjem sadržaja u odnosu na početak sadržaja (u obliku intervala).
+
+Bez obzira na vrstu uređaja s kojeg se medijski sadržaj gleda (deviceType), gledanje se može obaviti pomoću preglednika ili pomoću aplikacije instalirane na uređaju. Za gledanje preko preglednika bilježi se identifikator preglednika (trackView.browserID), odnosno vrijednost NULL za gledanja pomoću instalirane aplikacije. Za uređaj (device) se evidentira marka uređaja (brandId) i vrsta (deviceType).
+
+Broj mogućih istovremenih gledanja medijskih sadržaja preko svih profilâ pojedinog korisničkog računa ograničen je paketom (pack.streamNo) vlasnika računa.
+
+U bazi podataka postoje mehanizimi koji osiguravaju konzistentnost podataka vezanih uz poslovna pravila rada sustava (npr. ograničenje maksimalnog broja istovremenih gledanja, računanje ocjene medijskih sadržaja i serija, itd.).
