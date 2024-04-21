@@ -94,7 +94,7 @@ To use any of the projects:
 
 ## 📬 Contact
 Feel free to reach out if you have questions or need further information:
-- 📧 Email: your-email@example.com
+- 📧 Email: jure.rajcic.work@gmail.com
 
 ## 📝 License
 This work is shared for educational purposes. Feel free to use and learn from these projects.
