@@ -1,27 +1,23 @@
 # 🎓 College Assignments & Tools Repository TODO
 
-## 📂 Repositories to Update
+## 📂 Repositories & Items to Update
 
 ### 1️⃣ Undergraduate Studies [2020/2021] (Electrical Engineering & Computer Science)
-- 🔌 **Basics of Electrical Engineering** - add labs
-- 📐 **Physics** -- add labs
+- [ ] 🔌 **Basics of Electrical Engineering** - add laboratory assignments / solutions
+- [ ] 📐 **Physics** - add laboratory assignments / experiment data
 
 ### 3️⃣ Undergraduate Studies [2022/2023] (Computer Science)
-- 🛠️ **Software Engineering** 👥 - add lectures
-- 🤖 **Introduction to artificial intelligence** - add abs
+- [ ] 🛠️ **Software Engineering** 👥 - add lecture materials
+- [ ] 🤖 **Introduction to artificial intelligence** - complete missing lab reports
 
 ### 4️⃣ Graduate Studies [2023/2025] (Computer Science)
-- 📊 **Algorithms and data structures (Advanced)** - add everything
-- 📝 **Seminar 1** - add everything
-- 🌐 **Architecture, protocols and web services** - add everything
-- 🧠 **Soft computing** - add everything
-- 🎨 **Creative lab** - add everything
-- 👁️ **Computer vision** - add everything
-- 📝 **Seminar 2** - add everything
-- ⚡ **Parallel programming** - add everything
-- 📈 **Analysis of large datasets** - add everything
-- 🖼️ **Digital image processing and analysis** - add everything
-- 🔍 **Public opinion survey in the acceptance of new technologies** - add everything
+- [ ] 🎨 **Creative Laboratory** - add creative project prototypes and documentation
+- [ ] 🔍 **Public Opinion Research on the Acceptance of New Technologies** - add survey instruments, data analysis, and reports
+- [ ] 🌐 **Web Architecture, Protocols and Services** - add lecture slides, lab exercises, and assignments
 
-#
-- 🎓 **Graduate thesis**
+### 5️⃣ Graduate Studies [2025/2027] (Computer Science)
+- [ ] ⚖️ **Artificial Intelligence Ethics** - add seminar papers and case study reports
+- [ ] 📡 **High-Speed Communication Networks** - add lecture slides and network simulations
+- [ ] 🛰️ **Space Sustainability** - add course research papers and presentation materials
+- [ ] 📝 **Master's Thesis Project** - add research proposal, system architecture, and progress reports
+- [ ] 🎓 **Master's Thesis** - add final thesis document, code repository link, and defense slides
