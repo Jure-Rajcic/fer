@@ -1,0 +1,61 @@
+MODULE main
+VAR
+	proc0 : process user(proc1.flag);
+	proc1 : process user(proc0.flag);
+
+-- a) Specifikacija da je moguće jedno nepoželjno ponašanje (refutation)
+-- Provjerava postoji li barem jedan put u kojem oba procesa budu u critical sekciji
+CTLSPEC EF (proc0.state = critical & proc1.state = critical)
+
+-- b) Specifikacija da nema nepoželjnog ponašanja (safety property)
+-- Provjerava da na svim putevima i u svakom trenutku vrijedi međusobno isključivanje
+CTLSPEC AG !(proc0.state = critical & proc1.state = critical)
+
+-- c) Obilježje živosti za proces 0
+-- Ako proces 0 zatraži ulazak (stanje testflag), na kraju će ući u critical sekciju
+CTLSPEC AG (proc0.state = testflag -> AF proc0.state = critical)
+
+-- d) Obilježje živosti za proces 1
+-- Ako proces 1 zatraži ulazak (stanje testflag), na kraju će ući u critical sekciju
+CTLSPEC AG (proc1.state = testflag -> AF proc1.state = critical)
+
+-- e) Provjera mogućnosti livelock stanja
+-- Provjerava postoji li put u kojem oba procesa budu zaglavljena u testflag1
+CTLSPEC EF (proc0.state = testflag1 & proc1.state = testflag1)
+
+-- f) Generiranje protuprimjera za livelock
+-- Tvrdi da sustav nikada ne može zapeti u testflag1 (očekuje se FALSE s protuprimjerom)
+CTLSPEC AG !(proc0.state = testflag1 & proc1.state = testflag1)
+
+MODULE user(oflag)
+VAR
+	flag : boolean;
+	state  : {start, testflag, testflag1, critical, noncritical};
+ASSIGN
+	init(state) := start;
+	init(flag) := TRUE;
+	next(state) :=
+		case
+			state = start : testflag;
+			state = testflag & oflag : testflag1;
+			state = testflag & !oflag : critical;
+			state = testflag1 & oflag : testflag1;
+			state = testflag1 & !oflag : testflag;
+			state = critical : {critical, noncritical};
+			state = noncritical : {noncritical, start};
+			TRUE : state;
+		esac;
+
+	next(flag) := 
+		case 
+			state = start : TRUE;
+			state = testflag & oflag : FALSE;
+			state = testflag1 & !oflag : TRUE;
+			state = noncritical : FALSE;
+			TRUE : flag;
+		esac;
+
+-- Ograničenja pravednosti osiguravaju da procesi napreduju
+	JUSTICE running
+	JUSTICE !(state = critical)
+	JUSTICE !(state = noncritical)

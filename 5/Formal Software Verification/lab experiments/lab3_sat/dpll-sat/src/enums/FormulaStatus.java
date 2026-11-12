@@ -1,0 +1,1 @@
+public enum FormulaStatus { SATISFIABLE, UNSATISFIABLE, UNDECIDED }
