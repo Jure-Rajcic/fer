@@ -1,0 +1,19 @@
+curl 'https://edgar.fer.hr/exam/run/question/1?idti=506553' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: en-US,en;q=0.8' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -b 'connect.sid=s%3ACTnORRk4MK7l_9py7oCjXBSexm3xgqdH.CpiMW3Zg77DDxCgy803XiyuNcBIgG%2BrREpOIu7%2BNTVs' \
+  -H 'Origin: https://edgar.fer.hr' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: https://edgar.fer.hr/exam/run/1' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-GPC: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --data-raw '{"code": "import numpy as np\nimport pulp\n\n\n\n# JMBAG: 0036536053 -> 36536053 + 21 = 3653605321\n\nSEED = 3653605321\nrng = np.random.default_rng(SEED)\n\n\n\n# Generiranje matrica tro\u0161kova\nmali_costs = rng.integers(low=1, high=21, size=(8, 8))\nveliki_costs = rng.integers(low=1, high=21, size=(16, 16))\n\n\n\n# Konstrukcija assignment problema\ndef construct_problem(costs):\n    \"\"\"\n    Za zadanu numpy matricu costs konstruira PuLP model\n    problema pridru\u017eivanja (assignment problem).\n    \"\"\"\n    n, m = costs.shape\n\n    model = pulp.LpProblem(\"Assignment_Problem\", pulp.LpMinimize)\n\n    # Binarne varijable x_{i,j}\n    x = pulp.LpVariable.dicts(\n        \"x\",\n        ((i, j) for i in range(n) for j in range(m)),\n        lowBound=0,\n        upBound=1,\n        cat=pulp.LpBinary\n    )\n\n    # Funkcija cilja\n    model += pulp.lpSum(costs[i, j] * x[(i, j)] for i in range(n) for j in range(m))\n\n    # Svaki radnik dobiva to\u010dno jedan zadatak\n    for i in range(n):\n        model += pulp.lpSum(x[(i, j)] for j in range(m)) == 1\n\n    # Svaki zadatak ide to\u010dno jednom radniku\n    for j in range(m):\n        model += pulp.lpSum(x[(i, j)] for i in range(n)) == 1\n\n    return model\n\n\n\n# LP/MILP pristup\n\ndef solve_LP(model):\n    solver = pulp.PULP_CBC_CMD(msg=False)\n    model.solve(solver)\n    return model\n\n\n\n# CP pristup\ndef solve_CP(model):\n    try:\n        solver = pulp.CHOCO_CMD(msg=False)\n        model.solve(solver)\n    except pulp.PulpSolverError:\n        # Choco nije instaliran u testnom okru\u017eenju\n        solver = pulp.PULP_CBC_CMD(msg=False)\n        model.solve(solver)\n\n    return model\n", "id_programming_language": "34"}'
