@@ -21,3 +21,4 @@ This seminar explores the automatic generation of scalable vector graphic (SVG) 
 ### 📂 Seminar Materials
 - **📄 Seminar Paper**: `Seminar2-doc.pdf`
 - **📊 Presentation**: `Presentation.pptx`
+
